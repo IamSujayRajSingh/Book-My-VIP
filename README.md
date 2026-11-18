@@ -1,6 +1,6 @@
 # Book My VIP · Pattaya
 
-A mobile-first Pattaya VIP nightlife concierge website. Astro generates 13 content pages and a custom 404 page. The booking form composes a WhatsApp enquiry in the visitor’s browser. Guests review their message and choose whether to send it in WhatsApp.
+A mobile-first Pattaya VIP nightlife concierge website. Astro generates the booking pages, nightlife blog and custom 404 page. The booking form composes a WhatsApp enquiry in the visitor’s browser. Guests review their message and choose whether to send it in WhatsApp.
 
 ## Run locally
 
@@ -37,6 +37,7 @@ public/
   apple-touch-icon.png     Home-screen icon from the same artwork
 src/
   components/              Shared navigation, cards, comparison, form, FAQ and gallery
+  content/blog/            Editable Markdown articles for the Pattaya nightlife blog
   data/                    Business settings, packages, navigation, FAQs and draft policies
   layouts/Base.astro       Shared page structure, metadata and structured data
   lib/                     WhatsApp formatting, date validation and optional analytics
@@ -73,6 +74,7 @@ dist/                      Generated site for Cloudflare Workers
 | Draft terms and conditions | `/terms-and-conditions/` |
 | Draft booking policy | `/booking-policy/` |
 | Custom 404 | `/404.html`, returned for unknown paths |
+| Blog index and individual guides | `/blog/` and `/blog/<article-filename>/` |
 
 ## Editing the website
 
@@ -82,6 +84,7 @@ dist/                      Generated site for Cloudflare Workers
 | WhatsApp number, displayed number, official Instagram, currency or timezone | `src/data/siteConfig.ts` |
 | Questions and answers | `src/data/faqs.ts` |
 | Navigation | `src/data/navigation.ts` |
+| Blog posts | Edit or add Markdown in `src/content/blog/`. Keep an existing filename to preserve its URL. Set the title, description, image, category, editorial order and genuine publication date in the frontmatter. Confirm the dates at launch. The production sitemap includes new articles on rebuild. The price guide reads its comparison from the shared package data. |
 | Policy drafts | `src/data/policies.ts` and the draft label in `src/pages/[policy].astro` |
 | Homepage copy | `src/pages/index.astro` and `src/components/Hero.astro` |
 | Logo and favicon | `public/images/branding/logo.png`, `public/favicon.ico` and `public/apple-touch-icon.png`; keep the original JPEG for future exports |

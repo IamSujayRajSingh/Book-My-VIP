@@ -1,0 +1,48 @@
+---
+import { packages, formatPrice, capacityLabel } from "../data/packages";
+const prices = packages.map((p) => p.price);
+---
+
+<p>
+  Book My VIP’s listed Pattaya table packages range from{" "}
+  <strong>
+    {formatPrice(Math.min(...prices))} to {formatPrice(Math.max(...prices))}
+  </strong>{" "}
+  per package. The table below uses the published group sizes to show what an
+  equal split would look like. Your venue and booking terms determine the final
+  amount.
+</p>
+<div
+  class="blog-costs"
+  role="region"
+  aria-label="Package prices and estimated shares"
+  tabindex="0"
+>
+  <table>
+    <caption>Book My VIP’s Pattaya table prices in Thai baht</caption>
+    <thead>
+      <tr>
+        <th scope="col">Package</th>
+        <th scope="col">Table price</th>
+        <th scope="col">Group size</th>
+        <th scope="col">Equal share</th>
+      </tr>
+    </thead>
+    <tbody>
+      {packages.map((p) => (
+        <tr>
+          <th scope="row">
+            <a href={"/vip-packages/" + p.slug + "/"}>{p.name}</a>
+          </th>
+          <td>{formatPrice(p.price)}</td>
+          <td>{capacityLabel(p)}</td>
+          <td>
+            {p.capacity
+              ? formatPrice(p.price / p.capacity)
+              : "Ask for capacity first"}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

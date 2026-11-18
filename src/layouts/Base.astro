@@ -13,12 +13,14 @@ interface Props {
   title: string;
   description: string;
   image?: string;
+  ogType?: "website" | "article";
   noindex?: boolean;
 }
 const {
   title,
   description,
   image = "/images/hero/pattaya-night.webp",
+  ogType = "website",
   noindex = false,
 } = Astro.props;
 const canonical =
@@ -65,7 +67,7 @@ const json = {
     {(!Astro.site || noindex) && (
       <meta name="robots" content="noindex, follow" />
     )}
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={s.businessName} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
