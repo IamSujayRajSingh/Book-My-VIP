@@ -1,0 +1,51 @@
+---
+import Base from "../layouts/Base.astro";
+import PageIntro from "../components/PageIntro.astro";
+import BookingForm from "../components/BookingForm.astro";
+import Icon from "../components/Icon.astro";
+import { siteConfig as s } from "../data/siteConfig";
+---
+
+<Base
+  title="Contact the Pattaya VIP Booking Concierge | Book My VIP"
+  description="Share your Pattaya date, preferred VIP package and group size in a WhatsApp enquiry. Contact Book My VIP directly or visit the official Instagram profile."
+>
+  <PageIntro
+    eyebrow="Pattaya concierge"
+    title="Get in touch."
+    description="Have a night in mind? Share your plans with the booking team."
+  />
+  <div class="wrap section contact-layout">
+    <aside>
+      <h2>
+        Your <em>concierge.</em>
+      </h2>
+      <div class="channel">
+        <Icon name="whatsapp" />
+        <div>
+          <h3>WhatsApp</h3>
+          <a href={s.whatsappUrl} data-event="whatsapp_contact">
+            {s.whatsappDisplay} ↗
+          </a>
+        </div>
+      </div>
+      <div class="channel">
+        <Icon name="instagram" />
+        <div>
+          <h3>Instagram</h3>
+          <a href={s.instagramUrl} data-event="instagram_click">
+            {s.instagramHandle} ↗
+          </a>
+        </div>
+      </div>
+      <div class="channel">
+        <Icon name="pin" />
+        <div>
+          <h3>Service area</h3>
+          <p>Pattaya, Thailand</p>
+        </div>
+      </div>
+    </aside>
+    <BookingForm />
+  </div>
+</Base>

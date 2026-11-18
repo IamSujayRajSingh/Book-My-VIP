@@ -1,0 +1,25 @@
+---
+import Base from "../layouts/Base.astro";
+import PageIntro from "../components/PageIntro.astro";
+---
+
+<Base
+  title="Page Not Found | Book My VIP"
+  description="Find your way back to the Pattaya VIP packages or contact the booking team."
+  noindex
+>
+  <PageIntro
+    eyebrow="404 · Page not found"
+    title="Let’s get you back."
+    description="This page could not be found. Explore the current Pattaya packages or return to the homepage."
+  >
+    <div class="actions">
+      <a class="btn gold" href="/vip-packages/">
+        Explore packages →
+      </a>
+      <a class="btn outline" href="/">
+        Home
+      </a>
+    </div>
+  </PageIntro>
+</Base>

@@ -1,0 +1,100 @@
+---
+import Icon from "./Icon.astro";
+import { inquiryUrl } from "../lib/whatsapp";
+import { packages } from "../data/packages";
+const scenes = [
+  {
+    image: "/images/hero/pattaya-night.webp",
+    mobile: "/images/hero/pattaya-night-mobile.webp",
+    alt: "Violet and amber lights across a nightclub crowd",
+  },
+  ...[packages[0], packages[2]].map((p) => ({
+    image: p.image,
+    mobile: p.image,
+    alt: p.imageAlt,
+  })),
+];
+---
+
+<section class="hero">
+  <picture class="hero-image">
+    <source media="(max-width: 640px)" srcset={scenes[0].mobile} />
+    <img
+      src={scenes[0].image}
+      alt={scenes[0].alt}
+      width="1920"
+      height="800"
+      fetchpriority="high"
+    />
+  </picture>
+  <div class="hero-shade"></div>
+  <div class="wrap hero-inside">
+    <div class="location">
+      <Icon name="pin" size={14} /> Pattaya, Thailand
+    </div>
+    <h1>
+      Own the night
+      <br />
+      <em>in Pattaya.</em>
+    </h1>
+    <p>
+      VIP tables, curated packages, and a personal nightlife concierge. Plan
+      your night in Pattaya with Book My VIP.
+    </p>
+    <div class="actions">
+      <a class="btn gold" href="/vip-packages/">
+        Explore packages <Icon name="arrow" />
+      </a>
+      <a class="btn outline" href={inquiryUrl()} data-event="whatsapp_contact">
+        <Icon name="whatsapp" /> Enquire on WhatsApp
+      </a>
+    </div>
+  </div>
+  <div class="hero-foot wrap">
+    <a href="#packages" class="scroll-link">
+      <span class="scroll-icon">
+        <i></i>
+      </span>{" "}
+      Discover the packages
+    </a>
+    <div class="scene-controls" data-scenes={JSON.stringify(scenes)} hidden>
+      <span class="scene-number" aria-live="polite" aria-atomic="true">
+        01 / 03
+      </span>
+      <button aria-label="Previous atmosphere image" data-step="-1">
+        <Icon class="back" name="chevron" size={15} />
+      </button>
+      <button aria-label="Next atmosphere image" data-step="1">
+        <Icon name="chevron" size={15} />
+      </button>
+    </div>
+  </div>
+</section>
+<script>
+  const controls = document.querySelector<HTMLElement>(".scene-controls");
+  if (controls) {
+    const scenes = JSON.parse(controls.dataset.scenes!) as {
+      image: string;
+      mobile: string;
+      alt: string;
+    }[];
+    let index = 0;
+    controls.hidden = false;
+    controls.querySelectorAll<HTMLButtonElement>("button").forEach((btn) =>
+      btn.addEventListener("click", () => {
+        index =
+          (index + Number(btn.dataset.step) + scenes.length) % scenes.length;
+        const scene = scenes[index];
+        const img =
+          document.querySelector<HTMLImageElement>(".hero-image img")!;
+        document.querySelector<HTMLSourceElement>(
+          ".hero-image source",
+        )!.srcset = scene.mobile;
+        img.src = scene.image;
+        img.alt = scene.alt;
+        controls.querySelector(".scene-number")!.textContent =
+          String(index + 1).padStart(2, "0") + " / 03";
+      }),
+    );
+  }
+</script>

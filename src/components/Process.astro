@@ -1,0 +1,26 @@
+---
+const steps = [
+  [
+    "Choose your package",
+    "Compare the group sizes, prices and experiences to find a starting point for your night.",
+  ],
+  [
+    "Share your plans",
+    "Send your date, guest count and special requests to the concierge through WhatsApp.",
+  ],
+  [
+    "Confirm the details",
+    "Review availability, final pricing and venue terms. Your table is secured once you receive explicit confirmation.",
+  ],
+];
+---
+
+<ol class="process">
+  {steps.map(([title, body], i) => (
+    <li>
+      <span>0{i + 1}</span>
+      <h3>{title}</h3>
+      <p>{body}</p>
+    </li>
+  ))}
+</ol>

@@ -1,0 +1,34 @@
+---
+interface Props {
+  photos?: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+    caption?: string;
+  }[];
+}
+const { photos = [] } = Astro.props;
+---
+
+{photos.length > 0 && (
+  <section class="wrap section">
+    <h2>
+      Guest <em>gallery.</em>
+    </h2>
+    <div class="guest-gallery">
+      {photos.map((photo) => (
+        <figure>
+          <img
+            loading="lazy"
+            src={photo.src}
+            alt={photo.alt}
+            width={photo.width}
+            height={photo.height}
+          />
+          {photo.caption && <figcaption>{photo.caption}</figcaption>}
+        </figure>
+      ))}
+    </div>
+  </section>
+)}

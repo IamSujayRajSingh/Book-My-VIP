@@ -1,0 +1,70 @@
+---
+import Brand from "./Brand.astro";
+import Icon from "./Icon.astro";
+import { siteConfig } from "../data/siteConfig";
+import { navigation } from "../data/navigation";
+const current = (href: string) =>
+  href === "/"
+    ? Astro.url.pathname === "/"
+    : Astro.url.pathname.startsWith(href);
+---
+
+<header class="header">
+  <div class="wrap header-row">
+    <Brand />
+    <nav class="desktop-nav" aria-label="Main navigation">
+      {navigation.map(([label, href]) => (
+        <a href={href} aria-current={current(href) ? "page" : undefined}>
+          {label}
+        </a>
+      ))}
+    </nav>
+    <div class="header-actions">
+      <a
+        class="instagram icon-btn"
+        href={siteConfig.instagramUrl}
+        aria-label="Book My VIP on Instagram"
+        data-event="instagram_click"
+      >
+        <Icon name="instagram" size={19} />
+      </a>
+      <a class="btn gold header-cta" href="/contact/#inquiry">
+        Book a table <Icon name="diagonal" size={16} />
+      </a>
+      <details class="mobile-menu">
+        <summary aria-label="Toggle navigation">
+          <Icon name="menu" />
+          <Icon class="close-icon" name="close" />
+        </summary>
+        <nav aria-label="Mobile navigation">
+          {navigation.map(([label, href]) => (
+            <a href={href} aria-current={current(href) ? "page" : undefined}>
+              {label}
+              <Icon name="chevron" size={15} />
+            </a>
+          ))}
+          <a href={siteConfig.instagramUrl} data-event="instagram_click">
+            Instagram <Icon name="instagram" />
+          </a>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>
+<script>
+  const menu = document.querySelector<HTMLDetailsElement>(".mobile-menu");
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && menu?.open) {
+      menu.open = false;
+      menu.querySelector("summary")?.focus();
+    }
+  });
+  document.addEventListener("click", (event) => {
+    if (
+      menu?.open &&
+      event.target instanceof Node &&
+      !menu.contains(event.target)
+    )
+      menu.open = false;
+  });
+</script>

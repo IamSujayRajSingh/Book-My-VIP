@@ -1,0 +1,18 @@
+---
+import PackageCard from "./PackageCard.astro";
+import { packages } from "../data/packages";
+interface Props {
+  full?: boolean;
+}
+const { full = false } = Astro.props;
+---
+
+<div class="package-grid">
+  {packages.map((pkg) => (
+    <PackageCard pkg={pkg} full={full} />
+  ))}
+</div>
+<p class="fineprint">
+  Package summaries in Thai baht. Confirm the venue, final inclusions and total
+  price for your date before booking.
+</p>

@@ -1,0 +1,34 @@
+---
+const id = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || "";
+const enabled = /^G-[A-Z0-9]{6,20}$/.test(id);
+---
+
+{enabled && (
+  <aside
+    id="privacy-choice"
+    class="privacy-choice"
+    data-id={id}
+    aria-label="Analytics preference"
+    hidden
+  >
+    <p>
+      May we use Google Analytics to count visits and enquiries?{" "}
+      <a href="/privacy-policy/">Privacy policy</a>
+    </p>
+    <button type="button" data-choice="yes">
+      Allow analytics
+    </button>
+    <button type="button" data-choice="no">
+      Decline
+    </button>
+  </aside>
+)}
+{enabled && (
+  <button type="button" class="privacy-settings">
+    Analytics preferences
+  </button>
+)}
+<script>
+  import { setupAnalytics } from "../lib/analytics";
+  setupAnalytics();
+</script>

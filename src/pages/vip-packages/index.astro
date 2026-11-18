@@ -1,0 +1,56 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import PackageGrid from "../../components/PackageGrid.astro";
+import Comparison from "../../components/Comparison.astro";
+import Process from "../../components/Process.astro";
+import FAQ from "../../components/FAQ.astro";
+import FinalCTA from "../../components/FinalCTA.astro";
+import { faqs } from "../../data/faqs";
+---
+
+<Base
+  title="VIP Nightlife Packages in Pattaya | Book My VIP"
+  description="Compare Pattaya VIP Package, Premium and Gold table experiences, listed prices, group sizes and selected inclusions before enquiring with the concierge."
+>
+  <PageIntro
+    eyebrow="The VIP collection"
+    title="Pattaya VIP packages."
+    description="Find the right starting point for your group. Explore the package summaries and check the details for your preferred night."
+    image="/images/hero/pattaya-night.webp"
+  />
+  <section class="wrap section">
+    <h2 class="sr-only">Explore the packages</h2>
+    <PackageGrid full />
+  </section>
+  <section class="band">
+    <div class="wrap section">
+      <div class="eyebrow">
+        <i></i>At a glance
+      </div>
+      <h2>
+        Compare the <em>details.</em>
+      </h2>
+      <Comparison />
+      <p class="fineprint">
+        Ask the team to confirm VIP Gold capacity and how any cover applies.
+        Review the <a href="/booking-policy/">booking policy</a> before payment.
+      </p>
+    </div>
+  </section>
+  <section class="wrap section">
+    <h2>
+      From package to <em>reservation.</em>
+    </h2>
+    <Process />
+  </section>
+  <section class="band">
+    <div class="wrap section faq-layout">
+      <h2>
+        Package <em>questions.</em>
+      </h2>
+      <FAQ items={[faqs[4], faqs[5], faqs[6]]} />
+    </div>
+  </section>
+  <FinalCTA />
+</Base>

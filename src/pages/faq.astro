@@ -1,0 +1,22 @@
+---
+import Base from "../layouts/Base.astro";
+import PageIntro from "../components/PageIntro.astro";
+import FAQ from "../components/FAQ.astro";
+import FinalCTA from "../components/FinalCTA.astro";
+---
+
+<Base
+  title="Pattaya VIP Booking FAQs | Book My VIP"
+  description="Find answers about Pattaya VIP package prices, WhatsApp enquiries, age and ID requirements, booking confirmation, cancellations and special occasions."
+>
+  <PageIntro
+    eyebrow="Concierge help"
+    title="Frequently asked questions."
+    description="The details to check when you’re planning a VIP night in Pattaya."
+  />
+  <section class="wrap section reading">
+    <h2 class="sr-only">Booking questions and answers</h2>
+    <FAQ />
+  </section>
+  <FinalCTA />
+</Base>

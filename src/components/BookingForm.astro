@@ -1,0 +1,161 @@
+---
+import { packages, formatPrice } from "../data/packages";
+import { siteConfig } from "../data/siteConfig";
+import Icon from "./Icon.astro";
+---
+
+<section id="inquiry" class="form-panel">
+  <div class="eyebrow">
+    <i></i>Booking enquiry
+  </div>
+  <h2>
+    Plan your <em>visit.</em>
+  </h2>
+  <p>
+    Choose your package, date and guest count. You’ll review your message in
+    WhatsApp before sending.
+  </p>
+  <noscript>
+    <p>
+      Contact the team on <a href={siteConfig.whatsappUrl}>WhatsApp</a> with
+      your package, date and guest count.
+    </p>
+  </noscript>
+  <form class="booking-form" hidden>
+    <label>
+      Preferred package
+      <select name="package" required>
+        <option value="">Select a VIP package</option>
+        {packages.map((p) => (
+          <option value={p.slug}>
+            {p.name} · {formatPrice(p.price)}
+          </option>
+        ))}
+      </select>
+    </label>
+    <div class="form-grid">
+      <label>
+        Preferred date
+        <input type="date" name="date" required />
+      </label>
+      <label>
+        Number of guests
+        <input
+          type="number"
+          name="guests"
+          min="1"
+          step="1"
+          required
+          placeholder="Guest count"
+          aria-describedby="capacity-hint"
+        />
+      </label>
+    </div>
+    <p class="field-hint" id="capacity-hint" aria-live="polite">
+      Dates and arrival times are local to Pattaya.
+    </p>
+    <details class="optional">
+      <summary>
+        Add optional details <Icon name="plus" size={16} />
+      </summary>
+      <div class="form-grid">
+        <label>
+          Your name
+          <input name="name" autocomplete="given-name" maxlength="80" />
+        </label>
+        <label>
+          Arrival time
+          <input type="time" name="time" />
+        </label>
+      </div>
+      <label>
+        Preferred venue
+        <input name="venue" maxlength="120" />
+      </label>
+      <label>
+        Additional requests
+        <textarea
+          name="requests"
+          rows="3"
+          maxlength="700"
+          placeholder="Occasion, seating preferences or accessibility needs"
+        ></textarea>
+      </label>
+    </details>
+    <p role="alert" class="form-error" hidden></p>
+    <button type="submit" class="btn gold">
+      <Icon name="whatsapp" />
+      Enquire on WhatsApp <Icon name="diagonal" size={16} />
+    </button>
+    <small>
+      Availability and final arrangements require explicit confirmation.{" "}
+      <a href="/privacy-policy/">Privacy policy</a>
+    </small>
+  </form>
+</section>
+<script>
+  import { packages, capacityLabel } from "../data/packages";
+  import { inquiryUrl, pattayaDate, validInquiry } from "../lib/whatsapp";
+  import { track } from "../lib/analytics";
+  const form = document.querySelector<HTMLFormElement>(".booking-form");
+  if (form) {
+    const field = (name: string) =>
+      form.elements.namedItem(name) as HTMLInputElement;
+    const select = field("package"),
+      guests = field("guests"),
+      date = field("date");
+    const hint = document.querySelector("#capacity-hint")!;
+    const error = form.querySelector<HTMLElement>(".form-error")!;
+    function selectPackage() {
+      const pkg = packages.find((p) => p.slug === select.value);
+      guests.value = pkg?.capacity?.toString() || "";
+      hint.textContent = pkg
+        ? pkg.capacity
+          ? "Listed for " +
+            capacityLabel(pkg) +
+            ". You may request a different group size."
+          : "Gold capacity requires confirmation. Enter your intended group size."
+        : "Dates and arrival times are local to Pattaya.";
+    }
+    const preselected = new URLSearchParams(location.search).get("package");
+    if (packages.some((p) => p.slug === preselected)) {
+      select.value = preselected!;
+      selectPackage();
+    }
+    date.min = pattayaDate();
+    date.addEventListener("focus", () => {
+      date.min = pattayaDate();
+    });
+    select.addEventListener("change", () => {
+      selectPackage();
+      if (select.value) track("package_selection", select.value);
+    });
+    form.addEventListener("focusin", () => track("booking_form_start"), {
+      once: true,
+    });
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      date.min = pattayaDate();
+      if (!form.reportValidity()) return;
+      const pkg = packages.find((p) => p.slug === select.value);
+      if (!pkg || !validInquiry(date.value, guests.valueAsNumber)) {
+        error.textContent =
+          "Choose a valid package, a current or future Pattaya date, and a whole number of guests.";
+        error.hidden = false;
+        return;
+      }
+      error.hidden = true;
+      const url = inquiryUrl(pkg, {
+        date: date.value,
+        guests: guests.valueAsNumber,
+        time: field("time").value,
+        venue: field("venue").value,
+        name: field("name").value,
+        requests: field("requests").value,
+      });
+      track("whatsapp_inquiry", pkg.slug);
+      window.open(url, "_blank", "noopener,noreferrer");
+    });
+    form.hidden = false;
+  }
+</script>

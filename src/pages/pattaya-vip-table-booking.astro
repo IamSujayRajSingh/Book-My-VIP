@@ -1,0 +1,62 @@
+---
+import Base from "../layouts/Base.astro";
+import PageIntro from "../components/PageIntro.astro";
+import PackageGrid from "../components/PackageGrid.astro";
+import FinalCTA from "../components/FinalCTA.astro";
+---
+
+<Base
+  title="Pattaya VIP Table Booking & Nightclub Reservations | Book My VIP"
+  description="Plan a VIP table in Pattaya for your group. Explore nightlife packages, prepare your preferred date and arrival details, and request venue-specific pricing."
+>
+  <PageIntro
+    eyebrow="Pattaya nightlife concierge"
+    title="Pattaya VIP table booking."
+    description="Plan a birthday, reunion or night out with personal assistance for your nightclub reservation in Pattaya."
+    image="/images/hero/pattaya-night.webp"
+  >
+    <a class="btn gold" href="/contact/#inquiry">
+      Plan your enquiry →
+    </a>
+  </PageIntro>
+  <section class="wrap section">
+    <h2>
+      Find your <em>table package.</em>
+    </h2>
+    <p class="lead">
+      Start with the size of your party, then compare the food, photo and music
+      details for each experience.
+    </p>
+    <PackageGrid />
+  </section>
+  <div class="band">
+    <section class="wrap section split align-top">
+      <div>
+        <h2>
+          What to <em>prepare.</em>
+        </h2>
+        <p>
+          Bring your preferred Pattaya date, guest count and first-choice
+          package. Share a venue preference or arrival time if you have one.
+          Planning early gives everyone time to review options and agree the
+          terms.
+        </p>
+      </div>
+      <div>
+        <h2>
+          Before you <em>confirm.</em>
+        </h2>
+        <p>
+          The concierge checks your request with the venue and discusses
+          capacity, seating, inclusions, payment requirements and the final
+          total. Wait for explicit reservation confirmation before making
+          arrival plans around a specific table.
+        </p>
+        <a class="text-link" href="/how-it-works/">
+          Read the booking guide →
+        </a>
+      </div>
+    </section>
+  </div>
+  <FinalCTA />
+</Base>

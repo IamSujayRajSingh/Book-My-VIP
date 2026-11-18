@@ -1,0 +1,63 @@
+---
+import { packages, capacityLabel, formatPrice } from "../data/packages";
+---
+
+<div
+  class="compare-scroll"
+  tabindex="0"
+  role="region"
+  aria-label="Scrollable package comparison"
+>
+  <table>
+    <caption>VIP package comparison</caption>
+    <thead>
+      <tr>
+        <th scope="col">Package summary</th>
+        {packages.map((p) => (
+          <th scope="col">{p.name}</th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Listed package price</th>
+        {packages.map((p) => (
+          <td>{formatPrice(p.price)}</td>
+        ))}
+      </tr>
+      <tr>
+        <th scope="row">Group size</th>
+        {packages.map((p) => (
+          <td>{capacityLabel(p)}</td>
+        ))}
+      </tr>
+      <tr>
+        <th scope="row">Selected inclusions</th>
+        {packages.map((p) => (
+          <td>
+            <ul>
+              {p.inclusions.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </td>
+        ))}
+      </tr>
+      <tr>
+        <th scope="row">Plan your enquiry</th>
+        {packages.map((p) => (
+          <td>
+            <a
+              class="text-link"
+              href={"/contact/?package=" + p.slug + "#inquiry"}
+              data-event="package_selection"
+              data-slug={p.slug}
+            >
+              Choose {p.name}
+            </a>
+          </td>
+        ))}
+      </tr>
+    </tbody>
+  </table>
+</div>

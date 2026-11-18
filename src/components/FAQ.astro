@@ -1,0 +1,20 @@
+---
+import { faqs } from "../data/faqs";
+import Icon from "./Icon.astro";
+interface Props {
+  items?: typeof faqs;
+}
+const { items = faqs } = Astro.props;
+---
+
+<div class="faq-list">
+  {items.map((f) => (
+    <details>
+      <summary>
+        {f.question}
+        <Icon name="plus" size={19} />
+      </summary>
+      <p>{f.answer}</p>
+    </details>
+  ))}
+</div>

@@ -1,0 +1,67 @@
+---
+import Icon from "./Icon.astro";
+import { type VipPackage, capacityLabel, formatPrice } from "../data/packages";
+import { inquiryUrl } from "../lib/whatsapp";
+interface Props {
+  pkg: VipPackage;
+  full?: boolean;
+}
+const { pkg, full = false } = Astro.props;
+const href = "/vip-packages/" + pkg.slug + "/";
+---
+
+<article class:list={["package-card", pkg.slug]}>
+  <a
+    class="package-photo"
+    href={href}
+    aria-label={capacityLabel(pkg) + " · View " + pkg.name + " details"}
+    data-event="package_selection"
+    data-slug={pkg.slug}
+  >
+    <img
+      src={pkg.image}
+      width="1008"
+      height="630"
+      loading="lazy"
+      alt={pkg.imageAlt}
+    />
+    <span class="capacity">
+      <Icon name="users" size={14} /> {capacityLabel(pkg)}
+    </span>
+    {pkg.slug === "vip-premium" && (
+      <span class="premium-star" aria-label="Premium experience">
+        <Icon name="sparkle" size={17} />
+      </span>
+    )}
+  </a>
+  <div class="card-body">
+    <div class="card-title">
+      <h3>
+        <a href={href} data-event="package_selection" data-slug={pkg.slug}>
+          {pkg.name}
+        </a>
+      </h3>
+      <div class="price">{formatPrice(pkg.price)}</div>
+    </div>
+    <ul class="inclusions">
+      {(full ? pkg.inclusions : pkg.highlights).map((item) => (
+        <li>
+          <Icon name="check" size={15} />
+          {item}
+        </li>
+      ))}
+    </ul>
+    <div class="card-links">
+      <a href={href} data-event="package_selection" data-slug={pkg.slug}>
+        View details <Icon name="arrow" size={15} />
+      </a>
+      <a
+        href={inquiryUrl(pkg)}
+        data-event="whatsapp_inquiry"
+        data-slug={pkg.slug}
+      >
+        <Icon name="whatsapp" size={16} /> Check availability
+      </a>
+    </div>
+  </div>
+</article>

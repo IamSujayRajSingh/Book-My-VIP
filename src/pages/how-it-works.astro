@@ -1,0 +1,62 @@
+---
+import Base from "../layouts/Base.astro";
+import PageIntro from "../components/PageIntro.astro";
+import FinalCTA from "../components/FinalCTA.astro";
+const steps = [
+  [
+    "Explore the packages",
+    "Compare the price, selected inclusions and group size. If you are considering Gold, the team will check the seating capacity for your group.",
+    "Compare VIP packages",
+    "/vip-packages/",
+  ],
+  [
+    "Choose your date and group size",
+    "Use the local Pattaya date for your visit. Include your arrival time, occasion or preferred venue if you already know them.",
+    "Plan your visit",
+    "/contact/#inquiry",
+  ],
+  [
+    "Send your WhatsApp enquiry",
+    "The form prepares a message for you. Review the information in WhatsApp and send it when you are ready.",
+  ],
+  [
+    "Review the venue’s offer",
+    "Discuss the venue, availability, complete inclusions, final total and any payment or deposit requirements. Ask about changes and cancellations before paying.",
+  ],
+  [
+    "Receive explicit confirmation",
+    "Keep the confirmation identifying your venue, date, arrival instructions and agreed package. An initial enquiry alone does not reserve a table.",
+    "Read the booking policy",
+    "/booking-policy/",
+  ],
+];
+---
+
+<Base
+  title="How Pattaya VIP Table Booking Works | Book My VIP"
+  description="Follow the five steps from choosing a Pattaya nightlife package to receiving explicit venue and table confirmation through the booking team."
+>
+  <PageIntro
+    eyebrow="Booking guide"
+    title="How it works."
+    description="From your first package choice to the message confirming your table."
+    image="/images/packages/vip-package.webp"
+  />
+  <ol class="wrap section guide">
+    {steps.map(([title, description, label, href], i) => (
+      <li>
+        <span>0{i + 1}</span>
+        <div>
+          <h2>{title}</h2>
+          <p>{description}</p>
+          {href && (
+            <a class="text-link" href={href}>
+              {label} →
+            </a>
+          )}
+        </div>
+      </li>
+    ))}
+  </ol>
+  <FinalCTA />
+</Base>

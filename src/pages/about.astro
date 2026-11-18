@@ -1,0 +1,63 @@
+---
+import Base from "../layouts/Base.astro";
+import PageIntro from "../components/PageIntro.astro";
+import FinalCTA from "../components/FinalCTA.astro";
+import Icon from "../components/Icon.astro";
+import { siteConfig } from "../data/siteConfig";
+---
+
+<Base
+  title="About Our Pattaya Nightlife Concierge | Book My VIP"
+  description="Meet Book My VIP, a Pattaya-focused nightlife booking service that helps groups compare table packages, discuss their preferences and confirm venue arrangements."
+>
+  <PageIntro
+    eyebrow="About Book My VIP"
+    title="A personal approach to nightlife."
+    description="VIP table booking assistance with one focus: your night in Pattaya."
+  />
+  <section class="wrap section split">
+    <img
+      class="detail-photo"
+      loading="lazy"
+      src="/images/packages/vip-gold.webp"
+      width="1008"
+      height="630"
+      alt="Warm amber lighting in a lounge seating area"
+    />
+    <div>
+      <div class="eyebrow">
+        <i></i>Our approach
+      </div>
+      <h2>
+        Built around <em>your group.</em>
+      </h2>
+      <p class="lead">
+        Your table plans start with a conversation. Tell us who’s coming, when
+        you’ll arrive and what you’re celebrating.
+      </p>
+      <p>
+        Book My VIP helps visitors compare three Pattaya nightlife packages and
+        put their requests to the venue. Your concierge brings the pricing,
+        inclusions and booking conditions into one WhatsApp conversation so your
+        group can decide together.
+      </p>
+      <a class="text-link" href="/how-it-works/">
+        How the booking process works <Icon name="arrow" />
+      </a>
+    </div>
+  </section>
+  <section class="band">
+    <div class="wrap social-line">
+      <Icon name="instagram" />
+      <span>Find us on Instagram</span>
+      <a
+        class="text-link"
+        href={siteConfig.instagramUrl}
+        data-event="instagram_click"
+      >
+        {siteConfig.instagramHandle} ↗
+      </a>
+    </div>
+  </section>
+  <FinalCTA />
+</Base>

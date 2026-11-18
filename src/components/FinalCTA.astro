@@ -1,0 +1,16 @@
+---
+import Icon from "./Icon.astro";
+import { inquiryUrl } from "../lib/whatsapp";
+---
+
+<section class="cta-banner">
+  <div class="wrap">
+    <Icon name="crown" size={31} />
+    <h2>
+      Ready for your VIP night <em>in Pattaya?</em>
+    </h2>
+    <a class="btn gold" href={inquiryUrl()} data-event="whatsapp_contact">
+      <Icon name="whatsapp" /> Check VIP availability
+    </a>
+  </div>
+</section>

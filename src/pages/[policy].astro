@@ -1,0 +1,34 @@
+---
+import Base from "../layouts/Base.astro";
+import PageIntro from "../components/PageIntro.astro";
+import { policies } from "../data/policies";
+export function getStaticPaths() {
+  return policies.map((policy) => ({
+    params: { policy: policy.slug },
+    props: { policy },
+  }));
+}
+const { policy } = Astro.props;
+---
+
+<Base
+  title={policy.title + " | Book My VIP Pattaya"}
+  description={policy.description}
+>
+  <PageIntro
+    eyebrow="Draft · Pending owner and legal review"
+    title={policy.title}
+    description={policy.description}
+  />
+  <article class="wrap section reading policy">
+    {policy.sections.map((s) => (
+      <section>
+        <h2>{s.heading}</h2>
+        <p>{s.body}</p>
+      </section>
+    ))}
+    <a class="text-link" href="/contact/">
+      Contact the booking team →
+    </a>
+  </article>
+</Base>
